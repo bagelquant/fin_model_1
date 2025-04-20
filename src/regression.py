@@ -52,14 +52,17 @@ def _regression() -> None:
     significnant_exposure = pd.DataFrame(index=concat_data.columns, columns=['mktrf', 'smb', 'hml', 'rmw', 'cma', 'umd'])
 
     for stock in concat_data.columns:
-        model = factor_regression(concat_data[stock], factor_returns)
+        model = factor_regression(concat_data[stock], factor_returns)  # type: ignore
         exposure.loc[stock] = model.params[1:]
         pvalues.loc[stock] = model.pvalues[1:]
         significnant_exposure.loc[stock] = model.params[1:][model.pvalues[1:] < 0.05]
 
-    print(exposure)
-    print(pvalues)
-    print(significnant_exposure)
+    print("exposure")
+    print(exposure.head(1))
+    print("pvalues")
+    print(pvalues.head(1))
+    print("significnant_exposure")
+    print(significnant_exposure.head(1))
 
     exposure.to_csv('data/regression/exposure.csv')
     pvalues.to_csv('data/regression/pvalues.csv')

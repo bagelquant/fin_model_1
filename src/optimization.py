@@ -60,16 +60,19 @@ def _optimize() -> None:
     weights = pd.Series(result.x, index=exposure.index)
     # round weights
     weights = weights.round(4)
+    print("====== optimized weights ======")
     print(weights)
+    print("====== performance ======")
     print(f'sharpe ratio: {sharpe_ratio(weights, stock_returns, rf)}')  # type: ignore
     print(f'expected return: {np.exp(np.log(1 + stock_returns.mean()).dot(weights) * 52) - 1}')
     print(f'expected volatility: {np.sqrt(52) * np.log(1 + stock_returns).std().dot(weights)}')
     # exposure
-    print(f'mktrf: {weights.dot(exposure["mktrf"]) - djia_exposure["mktrf"]: .4f}')
-    print(f'smb: {weights.dot(exposure["smb"]) - djia_exposure["smb"]: .4f}')
-    print(f'hml: {weights.dot(exposure["hml"]) - djia_exposure["hml"]: .4f}')
-    print(f'rmw: {weights.dot(exposure["rmw"]) - djia_exposure["rmw"]: .4f}')
-    print(f'cma: {weights.dot(exposure["cma"]) - djia_exposure["cma"]: .4f}')
+    print("====== exposure difference ======")
+    print(f'mktrf: {weights.dot(exposure["mktrf"]) - djia_exposure["mktrf"]: .4f}')  # type: ignore
+    print(f'smb: {weights.dot(exposure["smb"]) - djia_exposure["smb"]: .4f}')  # type: ignore
+    print(f'hml: {weights.dot(exposure["hml"]) - djia_exposure["hml"]: .4f}')  # type: ignore
+    print(f'rmw: {weights.dot(exposure["rmw"]) - djia_exposure["rmw"]: .4f}')  # type: ignore
+    print(f'cma: {weights.dot(exposure["cma"]) - djia_exposure["cma"]: .4f}')  # type: ignore
 
     weights.to_csv('data/optimized_weights.csv')
 
