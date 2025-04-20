@@ -60,13 +60,26 @@ def _regression() -> None:
     print("exposure")
     print(exposure.head(1))
     print("pvalues")
-    print(pvalues.head(1))
+    print(pvalues)
     print("significnant_exposure")
     print(significnant_exposure.head(1))
 
     exposure.to_csv('data/regression/exposure.csv')
     pvalues.to_csv('data/regression/pvalues.csv')
     significnant_exposure.to_csv('data/regression/significant_exposure.csv')
+    
+    # count the number of significant exposures for each stock
+    significant_exposure_count = significnant_exposure.notna().sum(axis=1)
+    print("significant exposure count")
+    print(significant_exposure_count.groupby(significant_exposure_count).count())
+    # count the number of significant exposures for each factor
+    significant_exposure_count = significnant_exposure.notna().sum(axis=0)
+    significant_exposure_percent = significant_exposure_count / len(concat_data.columns) * 100
+    significant_exposure_factor = pd.concat([significant_exposure_count, significant_exposure_percent], axis=1).round(2)
+    significant_exposure_factor.columns = ['count', 'percent']
+    print("significant exposure count")
+    print(significant_exposure_factor)
+    
 
 if __name__ == '__main__':
     _regression()
