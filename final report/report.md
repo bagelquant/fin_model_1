@@ -77,16 +77,13 @@ Since the DJIA index is significantly affected by all the factors except for the
 
 In the upcoming mean-variance optimization, we will impose constraints to ensure that the portfolio has the same mktrf exposure as the DJIA index while maintaining higher exposure to the other factors. The goal is to preserve the same market exposure as the DJIA index while aiming for higher returns through increased exposure to the other factors.
 
-### Rolling mean-variance optimization and lookback period selection
+Constraints:
 
-- Constraints:
-  - The portfolio must have the same mktrf exposure as the DJIA index.
-  - The portfolio must have higher exposure to the other factors (smb, hml, rmw, cma).
-  - The portfolio weights must sum to 1.
-  - The portfolio weights must be non-negative (no short selling).
-  - Maximum weight for each stock is 10% (to avoid concentration risk).
-
-- [ ] need to generate plots and tables
+- The portfolio must have the same mktrf exposure as the DJIA index.
+- The portfolio must have higher exposure to the other factors (smb, hml, rmw, cma).
+- The portfolio weights must sum to 1.
+- The portfolio weights must be non-negative (no short selling).
+- Maximum weight for each stock is 10% (to avoid concentration risk).
 
 ### Final portfolio allocation
 
@@ -124,6 +121,20 @@ The following Industries have zero allocation in the final portfolio:
 - Retailing
 - Speciality chemicals
 - Telecommunications industry
+
+Allocation exposure on factors:
+
+|      | DJIA  | Portfolio | Difference |
+|:-----|:-----:|:---------:|:----------:|
+| mktrf| 0.957 |   0.957   |    0.000   |
+| smb  | -0.103|  -0.103   |   -0.000   |
+| hml  | 0.057 |   0.057   |   -0.000   |
+| rmw  | 0.199 |   0.199   |    0.000   |
+| cma  | 0.249 |   0.287   |    0.038   |
+
+After optimization, we found that the portfolio has the same factor exposure as the DJIA index, except higher exposure to the cma factor. The results is consistent with our expectation that the linear programming model will likely to hit the constraints boundaries.
+
+Interestingly, **cma** is the highest exposure factor for DJIA, also explained higheset percentage of stocks in the index. The more detailed analysis of the factor is beyond the cope of this report, but the portfolio is likely to be more sensitive to the cma factor than the DJIA index, which may lead to higher returns in the long run, consistent with our goal of enhancing the index portfolio.
 
 \newpage
 
@@ -177,3 +188,47 @@ We conducted a rolling t-test to assess the significance of excess log returns o
 
 We could clearly see that the p-value of the rolling t-test surged from 0.06 to near 0.30 after the tariff announcement. The model performed well in the pre-tariff period, but the performance deteriorated significantly after the tariff announcement. 
 
+## Risk Measures
+
+To evaluate the portfolio’s downside risk and volatility profile, we consider three key metrics: **Volatility**, **Value at Risk (VaR)**, and **Maximum Drawdown**. These measures provide insight into the behavior of the portfolio during various market conditions and allow for comparison with the benchmark index — the Dow Jones Industrial Average (DJIA). Our analysis spans three distinct market periods: pre-tariffs, post-tariffs, and the overall investment horizon.
+
+### Volatility
+
+Volatility is a fundamental measure of total risk and represents the standard deviation of daily log returns. It reflects the degree of variation in portfolio returns from their average. Lower volatility indicates more stable returns and a smoother investment experience.
+
+During the pre-tariff period, the portfolio exhibited a volatility of 0.88%, significantly lower than the DJIA's 1.09%. This suggests that the portfolio was better at absorbing shocks and reducing daily fluctuations. The post-tariff period saw a rise in volatility for both the portfolio (3.10%) and the DJIA (3.41%), consistent with heightened market uncertainty. Even during this volatile phase, the portfolio managed to maintain a relative advantage. Over the entire period, the portfolio recorded a total volatility of 1.54%, compared to the DJIA's 1.72%, highlighting its overall stability.
+
+### Value at Risk (VaR)
+
+VaR quantifies the potential loss in portfolio value over a specified period under normal market conditions, given a confidence level. We use a parametric (Gaussian) approach to compute 1-day and 5-day VaR at both 95% and 99% confidence levels.
+
+| Confidence | Horizon | Portfolio (Total) | DJIA (Total) |
+|------------|---------|-------------------|--------------|
+| 95%        | 1-Day   | -4.51%            | -2.59%       |
+| 95%        | 5-Day   | -8.42%            | -5.11%       |
+| 99%        | 1-Day   | -6.62%            | -3.76%       |
+| 99%        | 5-Day   | -13.15%           | -7.73%       |
+
+Although the portfolio's VaR appears larger in absolute terms, this is influenced by the higher volatility during the post-tariff period. Importantly, during the pre-tariff phase, the portfolio’s VaR was substantially lower than the DJIA’s — for instance, the 1-day 95% VaR was -1.37% for the portfolio versus -4.93% for the DJIA. This demonstrates the portfolio’s ability to minimize risk under normal market conditions.
+
+### Maximum Drawdown
+
+Maximum Drawdown (MDD) captures the worst-case peak-to-trough decline in portfolio value during the investment period. It reflects the magnitude of loss an investor would have experienced if they bought at the highest point and sold at the lowest.
+
+| Period       | Portfolio | DJIA     |
+|--------------|-----------|----------|
+| Pre-Tariff   | -4.44%    | -9.64%   |
+| Post-Tariff  | -8.09%    | -7.15%   |
+| Total        | -12.18%   | -16.11%  |
+
+The portfolio clearly outperformed the DJIA in preserving capital during the pre-tariff and overall periods. While it experienced a slightly higher drawdown post-tariffs, the cumulative drawdown across the total investment horizon remained significantly lower than the benchmark.
+
+### Risk Measures Summary
+
+The risk analysis reveals that the optimized portfolio consistently delivered superior risk management across various market conditions. It demonstrated:
+
+- **Lower volatility**, suggesting more stable and predictable returns.
+- **Reduced VaR**, particularly during stable market phases, reflecting stronger downside protection.
+- **Shallower drawdowns**, supporting better capital preservation in adverse conditions.
+
+These risk characteristics underline the portfolio’s effectiveness in achieving more efficient risk-adjusted performance compared to the DJIA.

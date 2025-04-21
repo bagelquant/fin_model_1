@@ -73,6 +73,14 @@ def _optimize() -> None:
     print(f'hml: {weights.dot(exposure["hml"]) - djia_exposure["hml"]: .4f}')  # type: ignore
     print(f'rmw: {weights.dot(exposure["rmw"]) - djia_exposure["rmw"]: .4f}')  # type: ignore
     print(f'cma: {weights.dot(exposure["cma"]) - djia_exposure["cma"]: .4f}')  # type: ignore
+    
+    exposure = pd.DataFrame({"DJIA": [djia_exposure["mktrf"], djia_exposure["smb"], djia_exposure["hml"], djia_exposure["rmw"], djia_exposure["cma"]],
+                            "Portfolio": [weights.dot(exposure["mktrf"]), weights.dot(exposure["smb"]), weights.dot(exposure["hml"]), weights.dot(exposure["rmw"]), weights.dot(exposure["cma"])]},
+                           index=["mktrf", "smb", "hml", "rmw", "cma"])
+    exposure["difference"] = exposure["Portfolio"] - exposure["DJIA"]
+    exposure = exposure.round(3)
+    print(exposure)
+    exposure.to_csv('data/exposure_difference.csv')
 
     weights.to_csv('data/optimized_weights.csv')
 
