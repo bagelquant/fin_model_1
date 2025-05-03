@@ -136,6 +136,26 @@ After optimization, we found that the portfolio has the same factor exposure as 
 
 Interestingly, **cma** is the highest exposure factor for DJIA, also explained higheset percentage of stocks in the index. The more detailed analysis of the factor is beyond the cope of this report, but the portfolio is likely to be more sensitive to the cma factor than the DJIA index, which may lead to higher returns in the long run, consistent with our goal of enhancing the index portfolio.
 
+### Allocation Factor Exposure
+
+| Factor | DJIA  | Portfolio | Difference |
+|:-------|:-----:|:---------:|-----------:|
+| mktrf  | 0.957 | 0.957     | 0.0        |
+| smb    | -0.103| -0.103    | -0.0       |
+| hml    | 0.057 | 0.057     | -0.0       |
+| rmw    | 0.199 | 0.199     | 0.0        |
+| cma    | 0.249 | 0.287     | 0.038      |
+
+|       |    p-value DJIA    |
+|-------|------------|
+| mktrf |    0.0     |
+| smb   |    0.0     |
+| hml   | 0.000129   |
+| rmw   |    0.0     |
+| cma   |    0.0     |
+| umd   | 0.726761   |
+
+
 \newpage
 
 ## Performance Evaluation
@@ -232,3 +252,19 @@ The risk analysis reveals that the optimized portfolio consistently delivered su
 - **Shallower drawdowns**, supporting better capital preservation in adverse conditions.
 
 These risk characteristics underline the portfolio’s effectiveness in achieving more efficient risk-adjusted performance compared to the DJIA.
+
+## Conclusion
+
+In summary, our study aimed to construct an enhanced index portfolio based on the Dow Jones Industrial Average (DJIA) using a mean-variance optimization approach. The objective was to maintain the same or higher factor exposure as the DJIA while potentially improving returns through optimized asset allocation. Our analysis utilized the Fama-French 5 factors plus momentum, although momentum was later excluded due to its limited significance.
+
+The backtesting results revealed that our portfolio outperformed the DJIA index with a total return of -6.71% compared to the DJIA's -12.13%, achieving an excess return of 5.42%. The portfolio's performance was particularly strong in stable market conditions, as evidenced by the significant excess returns during the pre-tariff period.
+
+Risk measures further highlighted the portfolio's robustness, demonstrating lower volatility, reduced Value at Risk (VaR), and shallower maximum drawdowns compared to the DJIA. These metrics underscore the portfolio's ability to deliver more stable and predictable returns, offering enhanced downside protection and better capital preservation across varied market environments.
+
+In conclusion, our enhanced index portfolio not only achieved its objective of outperforming the DJIA but also demonstrated superior risk management capabilities. This study underscores the potential benefits of refining traditional index investing through innovative strategies, offering valuable insights for investors seeking to achieve more efficient risk-adjusted performance.
+
+
+## Reference
+
+- WHARTON RESEARCH DATA SERVICES (https://wrds-www.wharton.upenn.edu)
+- Fama-French 5 factors (https://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html)
